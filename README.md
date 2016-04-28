@@ -7,3 +7,13 @@
 Node.js 版本 >= 6.0.0
 
 需要 root 权限
+
+## 演示
+
+### 全拼
+
+![normal](screenshots/normal.jpg)
+
+### 首字母
+
+![firstletter](screenshots/firstletter.jpg)
