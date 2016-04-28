@@ -18,11 +18,11 @@ const pinyinArrayToStr = (input) => {
   }).join(' ')
 }
 
-exec('mdfind kind:app', (code, stdout, stderr) => {
+exec('mdfind kind:app', { silent: true }, (code, stdout, stderr) => {
   if (code !== 0) return process.exit(1)
   stdout.split('\n').forEach(appPath => {
     if (!appPath) return
-    exec(`chmod -R a+w '${appPath}'; mdls -name kMDItemDisplayName '${appPath}'`, (code, stdout, stderr) => {
+    exec(`chmod -R a+w '${appPath}'; mdls -name kMDItemDisplayName '${appPath}'`, { silent: true }, (code, stdout, stderr) => {
       if (code !== 0) return
       const match = stdout.match(/.*?"(.*?[\u4E00-\u9FA5\uF900-\uFA2D]+?.*?)"/)
       if (!match) return
@@ -37,12 +37,10 @@ exec('mdfind kind:app', (code, stdout, stderr) => {
         segment: true,
         style: pinyin.STYLE_FIRST_LETTER
       }))
-      exec(`osascript -e 'tell application "Finder" to set comment of (POSIX file "${appPath}" as alias) to "${pinyinNormal} ${pinyinFirstLetter}"'`, (code, stdout, stderr) => {
+      exec(`osascript -e 'tell application "Finder" to set comment of (POSIX file "${appPath}" as alias) to "${pinyinNormal} ${pinyinFirstLetter}"'`, { silent: true }, (code, stdout, stderr) => {
         if (code !== 0) return process.exit(3)
         console.log(`🚀 [${name}]: ${pinyinNormal} ${pinyinFirstLetter}`)
       })
     })
   })
 })
-
-// console.log(exec("chmod -R a+w /Applications/WeChat.app"))
