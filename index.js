@@ -22,7 +22,7 @@ exec('mdfind kind:app', (code, stdout, stderr) => {
   if (code !== 0) return process.exit(1)
   stdout.split('\n').forEach(appPath => {
     if (!appPath) return
-    exec(`mdls -name kMDItemDisplayName '${appPath}'`, (code, stdout, stderr) => {
+    exec(`chmod -R a+w '${appPath}'; mdls -name kMDItemDisplayName '${appPath}'`, (code, stdout, stderr) => {
       if (code !== 0) return
       const match = stdout.match(/.*?"(.*?[\u4E00-\u9FA5\uF900-\uFA2D]+?.*?)"/)
       if (!match) return
@@ -44,3 +44,5 @@ exec('mdfind kind:app', (code, stdout, stderr) => {
     })
   })
 })
+
+// console.log(exec("chmod -R a+w /Applications/WeChat.app"))
