@@ -14,7 +14,11 @@ const combinations = (array) => {
 }
 const pinyinArrayToStr = (input) => {
   return combinations(input).map(item => {
-    return item.join('')
+    return Array.from({length: item.length - 1}, () => {
+      const str = item.join('')
+      item.shift()
+      return str
+    }).join(' ')
   }).join(' ')
 }
 
