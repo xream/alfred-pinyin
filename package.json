@@ -7,7 +7,7 @@
     "start": "sudo node index.js"
   },
   "author": "Hsiaoyi Hsu",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "dependencies": {
     "pinyin": "^2.7.1",
     "shelljs": "^0.7.0"
